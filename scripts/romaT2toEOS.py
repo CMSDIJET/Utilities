@@ -2,6 +2,9 @@
 import os
 import optparse  
 
+# edit script depending if you copy from eos-to-rome or from rome-to-eos
+# example:  python romaT2toEOS.py --inputList list.txt --outputDir /pnfs/roma1.infn.it/data/cms/store/user/santanas/rootTrees/Spring15_v1/
+
 usage = "usage: %prog [options]"
 parser = optparse.OptionParser(usage)
 parser.add_option("--inputList",action="store",type="string",dest="INPUTLIST")
