@@ -4,6 +4,7 @@ import optparse
 
 # edit script depending if you copy from eos-to-rome or from rome-to-eos
 # example:  python romaT2toEOS.py --inputList list.txt --outputDir /pnfs/roma1.infn.it/data/cms/store/user/santanas/rootTrees/Spring15_v1/
+#example of eos path: /eos/cms/store/group/phys_exotica/dijet/Dijet13TeV/juska/Spring15_JECV5/RSGravitonToQuarkQuark_kMpl01_M_9000_TuneCUETP8M1_13TeV_pythia8__RunIISpring15DR74-Asympt50ns_MCRUN2_74_V9A-v1__MINIAODSIM_9.root
 
 usage = "usage: %prog [options]"
 parser = optparse.OptionParser(usage)
