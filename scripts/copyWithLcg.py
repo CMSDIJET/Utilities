@@ -21,6 +21,7 @@ OUTPUTDIR = options.OUTPUTDIR
 storagePath = {'ROME': "srm://cmsrm-se01.roma1.infn.it:8443/srm/managerv2?SFN=/", 
                'CERN': "srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/"}
 
+global proc 
 if INPUTSTORAGE == 'CERN':
     proc = subprocess.Popen(["eos ls %s | grep root" % INPUTDIR], stdout=subprocess.PIPE, shell=True)
 if INPUTSTORAGE == 'ROME':
