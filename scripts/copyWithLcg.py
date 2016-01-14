@@ -5,7 +5,8 @@ import sys
 import subprocess
 import re
 
-usage = "usage: %prog [options]"
+
+usage = "run it from the site that contains the input directory: python copyWithLcg.py  --inputStorage ROME --inputDir /pnfs/roma1.infn.it/data/cms/store/user/santanas/Dijet13TeVScouting/rootTrees_big/TEST/ --outputStorage CERN --outputDir /eos/cms/store/group/phys_exotica/dijet/Dijet13TeVScouting/rootTrees_big/TEST/"
 parser = optparse.OptionParser(usage)
 parser.add_option("--inputStorage",action="store",type="string",dest="INPUTSTORAGE")
 parser.add_option("--outputStorage",action="store",type="string",dest="OUTPUTSTORAGE")
