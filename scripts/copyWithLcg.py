@@ -22,11 +22,11 @@ storagePath = {'ROME': "srm://cmsrm-se01.roma1.infn.it:8443/srm/managerv2?SFN=/"
                'CERN': "srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/"}
 
 if INPUTSTORAGE == 'CERN':
-    #print INPUTSTORAGE
-    proc = subprocess.Popen(["eos ls %s | grep root" % INPUTDIR], stdout=subprocess.PIPE, shell=True)
+    print INPUTSTORAGE
+    proc = subprocess.Popen(["/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls %s | grep root" % INPUTDIR], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
 if INPUTSTORAGE == 'ROME':
-    #print INPUTSTORAGE
+    print INPUTSTORAGE
     proc = subprocess.Popen(["ls %s | grep root" % INPUTDIR], stdout=subprocess.PIPE, shell=True)
     (out, err) = proc.communicate()
 
@@ -47,7 +47,7 @@ for infile in out:
     proc = subprocess.Popen(["lcg-ls -b --vo cms -D srmv2 -v \"%s%s/%s\" " %  (storagePath[OUTPUTSTORAGE],OUTPUTDIR,infile)], stdout=subprocess.PIPE, shell=True)
     (checkfile, err) = proc.communicate()
     checkfile = checkfile.splitlines()
-    #print checkfile
+    print checkfile
 
     if len(checkfile)==2:
         print("WARNING: File \"%s%s/%s\" already exists in the destination! I'm not overwriting!" %  (storagePath[OUTPUTSTORAGE],OUTPUTDIR,infile))
