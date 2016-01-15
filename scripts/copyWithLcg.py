@@ -22,6 +22,7 @@ OUTPUTDIR = options.OUTPUTDIR
 storagePath = {'ROME': "srm://cmsrm-se01.roma1.infn.it:8443/srm/managerv2?SFN=/", 
                'CERN': "srm://srm-eoscms.cern.ch:8443/srm/v2/server?SFN=/"}
 
+out = ""
 if INPUTSTORAGE == 'CERN':
     print INPUTSTORAGE
     proc = subprocess.Popen(["/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls %s | grep root" % INPUTDIR], stdout=subprocess.PIPE, shell=True)
