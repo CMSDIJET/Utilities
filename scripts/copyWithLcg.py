@@ -34,7 +34,9 @@ if INPUTSTORAGE == 'ROME':
 
 out = out.splitlines()
 
-for infile in out:
+FilesToBeCopied = []
+
+for infile in out:    
     infile.rstrip('\n')
     inpath = INPUTDIR+infile
     inpath.rstrip('\n')
@@ -55,6 +57,12 @@ for infile in out:
         print("WARNING: File \"%s%s/%s\" already exists in the destination! I'm not overwriting!" %  (storagePath[OUTPUTSTORAGE],OUTPUTDIR,infile))
     if len(checkfile)==1:
         print "I'll start the copy"
+        FilesToBeCopied.append(cmd)
         print cmd
         os.system(cmd)
 
+#for counter, elements in enumerate(FilesToBeCopied):
+#    print ""
+#    print counter
+#    print elements 
+#    print ""
