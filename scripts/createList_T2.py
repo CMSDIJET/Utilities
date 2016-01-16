@@ -29,7 +29,7 @@ def unique(keys):
 
 def make_filenamelist_eos(inputDir):
     filenamelist = []
-    proc = subprocess.Popen( '/afs/cern.ch/project/eos/installation/0.2.5/bin/eos.select ls ' + inputDir , shell=True,stdout = subprocess.PIPE, stderr = subprocess.STDOUT )
+    proc = subprocess.Popen( '/afs/cern.ch/project/eos/installation/0.3.84-aquamarine/bin/eos.select ls ' + inputDir , shell=True,stdout = subprocess.PIPE, stderr = subprocess.STDOUT )
     output = proc.communicate()[0]
     if proc.returncode != 0:
         print output
@@ -139,7 +139,7 @@ def process_input_dir(inputDir, match, filelist):
     return
 
 
-def write_inputlists(filelist, outputDir):
+def write_inputlists(filelist, outputDir,inputStorage):
     outputDir = outputDir.rstrip('/')+'/'
 
     keys = filelist.keys()
@@ -160,10 +160,16 @@ def write_inputlists(filelist, outputDir):
                 if( len(filelist[dataset][path][job][0])>0 ):
                     if( len(filelist[dataset][path][job][1])>0 ):
                         filename = ('dcap://cmsrm-se01.roma1.infn.it/'+path+dataset+'_%i_%i_%s.root')%(job,max(filelist[dataset][path][job][0]),filelist[dataset][path][job][1][filelist[dataset][path][job][0].index(max(filelist[dataset][path][job][0]))])
+                        if inputStorage == 'CERN':
+                            filename = (path+dataset+'_%i_%i_%s.root')%(job,max(filelist[dataset][path][job][0]),filelist[dataset][path][job][1][filelist[dataset][path][job][0].index(max(filelist[dataset][path][job][0]))])
                     else:
                         filename = ('dcap://cmsrm-se01.roma1.infn.it/'+path+dataset+'_%i_%i.root')%(job,max(filelist[dataset][path][job][0]))
+                        if inputStorage == 'CERN':
+                            filename = (path+dataset+'_%i_%i.root')%(job,max(filelist[dataset][path][job][0]))                            
                 else:
                     filename = ('dcap://cmsrm-se01.roma1.infn.it/'+path+dataset+'_%i.root')%(job)
+                    if inputStorage == 'CERN':
+                        filename = (path+dataset+'_%i.root')%(job)
                 inputList.write(filename+'\n')
         inputList.close()
     mainInputList.close()
@@ -179,6 +185,7 @@ def main():
     parser.add_option( '-m', '--match', metavar='MATCH', action='store', help='Only files containing the MATCH string in their names will be considered' )
     parser.add_option( '-i', '--inputDirs', metavar='INPUTDIR(S)', action="callback", callback=cb, dest="inputDirs", help='Specifies the input directory (or directories separated by space) containing .root files. Please use the full path. Castor directories are also supported' )
     parser.add_option( '-o', '--outputDir', metavar='OUTPUTDIR', action='store', help='Specifies the output directory where the .txt list files will be stored. Please use the full path' )
+    parser.add_option( '-s', '--inputStorage', metavar='INPUTSTORAGE', action='store', default='ROME',help='ROME or CERN' )
 
     (options, args) = parser.parse_args(args=None)
 
@@ -194,7 +201,7 @@ def main():
     for inputDir in inputDirs:
         process_input_dir(inputDir, options.match, filelist)
 
-    write_inputlists(filelist, options.outputDir)
+    write_inputlists(filelist, options.outputDir, options.inputStorage)
 
     print 'Output files successfully created'
     sys.exit()
